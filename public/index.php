@@ -1,44 +1,16 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-// require_once __DIR__ . "/../app/Controllers/PatientController.php";
 
-use DI\Container;
+use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
-
 use VetApp\Controllers\PatientController;
-use VetApp\Services\PatientService;
-use VetApp\Repositories\PatientRepository;
-use VetApp\Config\Database;
 
-$container = new Container();
+$containerBuilder = new ContainerBuilder();
+$container = $containerBuilder->build();
+
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-
-$container->set(Database::class, function () {
-    return new Database();
-});
-
-$container->set(PatientRepository::class, function ($c) {
-    return new PatientRepository($c->get(Database::class));
-});
-
-$container->set(PatientService::class, function ($c) {
-    return new PatientService(
-        $c->get(PatientRepository::class)
-    );
-});
-
-$container->set(PatientController::class,function ($c){
-    return new PatientController($c->get(PatientService::class));
-});
-
-
-
-
-// $app->addBodyParsingMiddleware();
-
-// $controller = new PatientController();
 
 // Default landing page
 $app->get('/', function ($request, $response) {
