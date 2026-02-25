@@ -2,17 +2,15 @@
 
 namespace VetApp\Config;
 
-
-use \PDO;
+use PDO;
 
 class Database
 {
-    private static ?PDO $connection = null;
+    private PDO $connection;
 
-    public static function getConnection(): PDO
+    public function __construct()
     {
-        if (self::$connection === null) {
-            self::$connection = new PDO(
+        $this->connection = new PDO(
                 "mysql:host=localhost;dbname=vetnz",
                 "admin",
                 "admin",
@@ -21,7 +19,10 @@ class Database
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
                 ]
             );
-        }
-        return self::$connection;
+    }
+
+    public function getConnection(): PDO
+    {
+        return $this->connection;
     }
 }
