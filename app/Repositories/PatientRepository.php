@@ -1,15 +1,21 @@
 <?php
 
-require_once __DIR__ . '/../../config/database.php';
-require_once __DIR__ . '/../Models/Patient.php';
+namespace VetApp\Repositories;
+
+use VetApp\Models\Patient;
+use \PDO;
+use VetApp\Config\Database;
+
+// require_once __DIR__ . '/../../config/database.php';
+// require_once __DIR__ . '/../Models/Patient.php';
 
 class PatientRepository
 {
     private PDO $db;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $this->db = Database::getConnection();
+        $this->db = $db->getConnection();
     }
 
     public function findAll(): array

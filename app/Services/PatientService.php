@@ -1,5 +1,10 @@
 <?php
 
+namespace VetApp\Services;
+
+use VetApp\Repositories\PatientRepository;
+use VetApp\Models\Patient;
+
 require_once __DIR__ . "/../Repositories/PatientRepository.php";
 require_once __DIR__ . "/../Models/Patient.php";
 
@@ -9,9 +14,9 @@ class PatientService
 
     private PatientRepository $patientRepository;
 
-    public function __construct()
+    public function __construct(PatientRepository $patientRepository)
     {
-        $this->patientRepository = new PatientRepository();
+        $this->patientRepository = $patientRepository;
     }
 
     public function getAllPatients(): array

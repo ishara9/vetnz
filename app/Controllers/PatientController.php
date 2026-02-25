@@ -1,17 +1,20 @@
 <?php
 
-require_once __DIR__ . "/../Services/PatientService.php";
+namespace VetApp\Controllers;
+
+// require_once __DIR__ . "/../Services/PatientService.php";
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use VetApp\Services\PatientService;
 
 class PatientController
 {
 
     private ?PatientService $patientService = null;
 
-    public function __construct()
+    public function __construct(PatientService $patientService)
     {
-        $this->patientService = new PatientService();
+        $this->patientService = $patientService;
     }
 
     public function getAll(Request $request, Response $response): Response

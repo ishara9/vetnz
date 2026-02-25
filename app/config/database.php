@@ -1,5 +1,10 @@
 <?php
 
+namespace VetApp\Config;
+
+
+use \PDO;
+
 class Database
 {
     private static ?PDO $connection = null;

@@ -1,5 +1,7 @@
 <?php
 
+namespace VetApp\Models;
+
 class Patient
 {
     public function __construct(
