@@ -77,6 +77,39 @@ class PatientController
             ->withStatus(201);
     }
 
+    public function patch(Request $request, Response $response, array $args)
+    {
+
+        $id = $args["id"];
+
+        $data = $request->getParsedBody();
+
+        if(empty($data)) {
+            $response->getBody()->write(json_encode(["message" => "No data provided for update."]));
+            return $response->withStatus(400)->withHeader("Content-Type", "application/json");
+        }
+
+        $updatingPatient = $this->patientService->getPatient($id);
+
+        if(!$updatingPatient) {
+            $response->getBody()->write(json_encode(["message" => "Patient not found!"]));
+            return $response->withStatus(404)->withHeader("Content-Type", "application/json");
+        }
+        else {
+            $data = array_merge($updatingPatient, $data);
+        }
+
+        $res = $this->patientService->updatePatient($id, $data);
+
+        $response->getBody()
+            ->write(json_encode(["message" => "Updated Patient with id:  " . $id . " returned: " . $res]));
+
+        return $response
+            ->withHeader("Content-Type", "application/json")
+            ->withStatus(200);
+    }
+
+
     public function delete(Request $request, Response $response, array $args)
     {
         $id = $args["id"];

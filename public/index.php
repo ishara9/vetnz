@@ -11,6 +11,7 @@ $container = $containerBuilder->build();
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();
+$app->addBodyParsingMiddleware();
 
 // Default landing page
 $app->get('/', function ($request, $response) {
@@ -24,7 +25,7 @@ $app->get('/api/patients', [PatientController::class, 'getAll']);
 $app->get('/api/patients/{id}', [PatientController::class, 'getById']);
 $app->post('/api/patients', [PatientController::class, 'create']);
 $app->put('/api/patients/{id}', [PatientController::class, 'update']);
-$app->patch('/api/patients/{id}', [PatientController::class, 'update']);
+$app->patch('/api/patients/{id}', [PatientController::class, 'patch']);
 $app->delete('/api/patients/{id}', [PatientController::class, 'delete']);
 
 $app->run();
