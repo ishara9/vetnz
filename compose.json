@@ -1,0 +1,18 @@
+{
+    "autoload": {
+        "psr-4": {
+            "VetApp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VetApp\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.0"
+    },
+    "require": {
+        "nikic/fast-route": "^1.3"
+    }
+}

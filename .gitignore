@@ -1,0 +1,22 @@
+/vendor/
+/composer.phar
+
+# Environment files
+/.env
+/.env.*
+!.env.example
+
+# Logs and runtime files
+*.log
+/storage/*.key
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Test/cache artifacts
+/.phpunit.result.cache
+/.phpunit.cache/
+/.cache/

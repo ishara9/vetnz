@@ -1,0 +1,8 @@
+CREATE TABLE patients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    species VARCHAR(100),
+    breed VARCHAR(100),
+    owner_name VARCHAR(255),
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)

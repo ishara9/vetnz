@@ -1,0 +1,21 @@
+{
+    "autoload": {
+        "psr-4": {
+            "VetApp\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VetApp\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.0"
+    },
+    "require": {
+        "nikic/fast-route": "^1.3",    
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.8",
+        "php-di/php-di": "^7.1"
+    }
+}
