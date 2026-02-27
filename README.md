@@ -1,4 +1,4 @@
-# VetNZ
+# VetNZ based on PHP 8.5
 
  Vet project is a NZ Clinic for animals.
 
