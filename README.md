@@ -1,6 +1,6 @@
-# VetNZ based on PHP 8.5
+# VetNZ - A New Zealand animal clinic management API
 
- Vet project is a NZ Clinic for animals.
+ PHP 8.5 + Slim + Layered Architecture
 
 ## VetApp API
 
