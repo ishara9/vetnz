@@ -6,9 +6,6 @@ use VetApp\Models\Patient;
 use \PDO;
 use VetApp\Config\Database;
 
-// require_once __DIR__ . '/../../config/database.php';
-// require_once __DIR__ . '/../Models/Patient.php';
-
 class PatientRepository
 {
     private PDO $db;
@@ -72,4 +69,14 @@ class PatientRepository
         WHERE id=?");
         return $stmt->execute([$id]);
     }
+
+    public function findMedicalRecordsByPatientId($patient_id): array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM medical_records WHERE patient_id = ?");
+        $stmt->execute([$patient_id]);
+        return $stmt->fetchAll();
+    }
 }
+
+
+

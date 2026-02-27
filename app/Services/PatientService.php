@@ -5,13 +5,11 @@ namespace VetApp\Services;
 use VetApp\Repositories\PatientRepository;
 use VetApp\Models\Patient;
 
-require_once __DIR__ . "/../Repositories/PatientRepository.php";
-require_once __DIR__ . "/../Models/Patient.php";
+// require_once __DIR__ . "/../Repositories/PatientRepository.php";
+// require_once __DIR__ . "/../Models/Patient.php";
 
 class PatientService
 {
-
-
     private PatientRepository $patientRepository;
 
     public function __construct(PatientRepository $patientRepository)
@@ -58,6 +56,11 @@ class PatientService
     public function deletePatient($id): bool
     {
         return $this->patientRepository->delete($id);
+    }
+
+    public function getPatientMedicalRecords($id): array
+    {
+        return $this->patientRepository->findMedicalRecordsByPatientId($id);
     }
 
 }

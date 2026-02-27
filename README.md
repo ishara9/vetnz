@@ -6,6 +6,10 @@
 
     php -S localhost:8000 -t public
 
+## Run Test using
+
+    .\vendor\bin\phpunit tests
+
 ## Architecture
 
     Controller -> Service -> Repository -> Database

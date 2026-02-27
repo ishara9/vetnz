@@ -9,8 +9,7 @@ use VetApp\Services\PatientService;
 
 class PatientController
 {
-
-    private ?PatientService $patientService = null;
+    private PatientService $patientService;
 
     public function __construct(PatientService $patientService)
     {
@@ -67,6 +66,19 @@ class PatientController
         $id = $args["id"];
 
         $data = json_decode(file_get_contents("php://input"), true);
+
+        if (empty($data)) {
+            $response->getBody()->write(json_encode(["message" => "No data provided for update."]));
+            return $response->withStatus(400)->withHeader("Content-Type", "application/json");
+        }
+
+        $updatingPatient = $this->patientService->getPatient($id);
+
+        if (!$updatingPatient) {
+            $response->getBody()->write(json_encode(["message" => "Patient not found!"]));
+            return $response->withStatus(404)->withHeader("Content-Type", "application/json");
+        }
+
         $res = $this->patientService->updatePatient($id, $data);
 
         $response->getBody()
@@ -84,18 +96,17 @@ class PatientController
 
         $data = $request->getParsedBody();
 
-        if(empty($data)) {
+        if (empty($data)) {
             $response->getBody()->write(json_encode(["message" => "No data provided for update."]));
             return $response->withStatus(400)->withHeader("Content-Type", "application/json");
         }
 
         $updatingPatient = $this->patientService->getPatient($id);
 
-        if(!$updatingPatient) {
+        if (!$updatingPatient) {
             $response->getBody()->write(json_encode(["message" => "Patient not found!"]));
             return $response->withStatus(404)->withHeader("Content-Type", "application/json");
-        }
-        else {
+        } else {
             $data = array_merge($updatingPatient, $data);
         }
 
@@ -112,11 +123,26 @@ class PatientController
 
     public function delete(Request $request, Response $response, array $args)
     {
-        $id = $args["id"];
-        $this->patientService->deletePatient($id);
+        $this->patientService->deletePatient($args["id"]);
         return $response->withStatus(204);
     }
 
 
+    // Get medical records for a patient
+    public function getMedicalRecords(Request $request, Response $response, array $args)
+    {
+        $id = $args["id"];
+        $medicalRecords = $this->patientService->getPatientMedicalRecords($id);
 
+        if ($medicalRecords === null) {
+            $response->getBody()->write(json_encode(["message" => "Patient not found!"]));
+            return $response->withStatus(404)->withHeader("Content-Type", "application/json");
+        }
+
+        $response->getBody()->write(json_encode($medicalRecords));
+
+        return $response
+            ->withHeader("Content-Type", "application/json")
+            ->withStatus(200);
+    }
 }
